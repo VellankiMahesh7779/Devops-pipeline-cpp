@@ -12,14 +12,15 @@ Containerize the application using Docker
 Automate build and deployment using Jenkins
 Deploy and manage the application using Kubernetes
 Establish a complete CI/CD workflow from code commit to deployment
+
 🛠️ Tech Stack
 Language: C++
 Containerization: Docker
 CI/CD: Jenkins
 Orchestration: Kubernetes
 Version Control: Git & GitHub
-🏗️ Architecture
 
+🏗️ Architecture
 Developer → GitHub → Jenkins → Docker → Kubernetes
 
 Code is pushed to GitHub
