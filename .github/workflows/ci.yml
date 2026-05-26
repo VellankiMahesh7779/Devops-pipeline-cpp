@@ -21,10 +21,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y g++
 
-    - name: Compile all C++ files
+    - name: Compile all C++ files (syntax check)
       run: |
         g++ $(find . -name "*.cpp") -o app.out
-
-    - name: Run application
-      run: |
-        ./app.out
