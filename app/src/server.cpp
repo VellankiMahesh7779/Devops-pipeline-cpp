@@ -11,7 +11,7 @@ int main() {
 
     // Route 2: Health check
     svr.Get("/health", [](const httplib::Request&, httplib::Response& res) {
-        res.set_content("OK", "text/plain");
+        res.set_content("MaheshVellanki healthy is Okay!", "text/plain");
     });
 
     std::cout << "Server running on http://localhost:9090" << std::endl;
