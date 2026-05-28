@@ -1,6 +1,6 @@
-## 📅 Project Progress
+#📅 Project Progress
 --------------------------------------
-## ✅ Day 1 - Project Setup
+#✅ Day 1 - Project Setup
 
 ### Completed Tasks
 - Created GitHub repository
@@ -15,7 +15,7 @@
 - GitHub Actions
 ---------------------------------------------------------------
 
-## ✅ Day 2 - C++ HTTP Server
+#✅ Day 2 - C++ HTTP Server
 
 ### Completed Tasks
 - Built lightweight HTTP server using C++
@@ -37,7 +37,7 @@ o/p= Server running on http://localhost:9090
 
 -----------------------------------------------------------------
 
-## ✅ Day 3 - Dockerized Real-Time Monitoring Dashboard
+#✅ Day 3 - Dockerized Real-Time Monitoring Dashboard
 
 ### Completed Tasks
 - Dockerized C++ application
@@ -82,3 +82,26 @@ http://localhost:9090
 ###Replace localhost with your local IP
 ###ex:http:12.34.56.78:9090
 ```
+--------------------------------------------------------------------------
+# ✅ Day 4 - GitHub Actions CI Pipeline
+
+### Completed Tasks
+- Added GitHub Actions workflow
+- Enabled automatic CI pipeline on every push
+- Automated C++ build process
+- Automated Docker image build
+
+### Technologies Used
+- GitHub Actions
+- YAML
+- Docker
+- C++
+
+---
+
+## 📁 Workflow File
+
+.github/workflows/ci.yml
+```
+Pipeline runs automatically on every branch push.
+--------------------------------------------------------------------------
