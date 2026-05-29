@@ -105,3 +105,52 @@ http://localhost:9090
 ```
 Pipeline runs automatically on every branch push.
 --------------------------------------------------------------------------
+
+# 🚀 Day 5 - Docker Hub Integration
+
+### Completed Tasks
+- Created Docker Hub repository
+- Logged in to Docker Hub
+- Tagged Docker image
+- Pushed image to Docker Hub
+- Pulled image from Docker Hub
+- Verified image deployment
+
+### Commands
+
+#### Login to Docker Hub
+docker login
+```
+
+#### Tag Docker Image
+docker tag devops-cpp-app vellankimahesh1999/devops-cpp-app:v1
+```
+### Check image tagged or not
+docker image
+-----
+
+#### Push Image
+docker push vellankimahesh1999/devops-cpp-app:v1
+```
+
+#### Pull Image
+docker pull vellankimahesh1999/devops-cpp-app:v1
+```
+
+#### Run Image
+docker run --rm -p 9090:9090 vellankimahesh1999/devops-cpp-app:v1
+```
+### Docker Hub Repository
+vellankimahesh1999/devops-cpp-app
+
+### Process
+Build Image
+    ↓
+Tag Image
+    ↓
+Push to Docker Hub
+    ↓
+Pull from Docker Hub
+    ↓
+Run Container
+```
