@@ -15,3 +15,4 @@ df / | tail -1
 top
 One-line CPU percentage
 top -bn1 | grep "Cpu(s)"
+
