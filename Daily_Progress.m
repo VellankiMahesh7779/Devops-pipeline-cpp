@@ -154,3 +154,24 @@ Pull from Docker Hub
     ↓
 Run Container
 ```
+-----------------------------------------------------------------
+# 🚀 Day 6 - Jenkins CI Pipeline
+
+### Completed Tasks
+- Created Jenkins Pipeline Job
+- Connected Jenkins with GitHub Repository
+- Added Jenkinsfile
+- Automated C++ Build
+- Automated Docker Image Build
+
+### Pipeline Stages
+Checkout Code
+    ↓
+Build C++
+    ↓
+Build Docker Image
+
+### Jenkinsfile Location
+Jenkinsfile
+```
+-----------------------------------------------------------------------
