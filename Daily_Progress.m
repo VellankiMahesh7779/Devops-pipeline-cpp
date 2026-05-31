@@ -175,3 +175,53 @@ Build Docker Image
 Jenkinsfile
 ```
 -----------------------------------------------------------------------
+# 🚀 Day 8 - Continuous Deployment with Jenkins
+
+## Completed Tasks
+- Added deployment stage to Jenkins pipeline
+- Automated Docker container deployment
+- Configured Jenkins to stop old container
+- Configured Jenkins to start new container
+- Verified application deployment after every code push
+
+## Workflow
+Developer Pushes Code
+          ↓
+GitHub Webhook
+          ↓
+Jenkins Pipeline Triggered
+          ↓
+Build C++ Application
+          ↓
+Build Docker Image
+          ↓
+Stop Existing Container
+          ↓
+Deploy New Container
+          ↓
+Application Available on Port 9090
+
+## Verification Commands
+### Check Running Container
+docker ps
+### View Container Logs
+docker logs devops-cpp-container
+
+### Access Application
+http://localhost:9090
+
+## Technologies Used
+- GitHub
+- GitHub Webhooks
+- Jenkins
+- Docker
+- C++
+- Linux
+
+## Key Learning
+- Continuous Integration (CI)
+- Continuous Deployment (CD)
+- Jenkins Pipeline
+- Docker Container Management
+- Automated Application Deployment
+---------------------------------------------------------------
