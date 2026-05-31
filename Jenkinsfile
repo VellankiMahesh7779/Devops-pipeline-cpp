@@ -20,5 +20,19 @@ pipeline {
                 '''
             }
         }
+
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                docker stop devops-cpp-container || true
+                docker rm devops-cpp-container || true
+
+                docker run -d \
+                --name devops-cpp-container \
+                -p 9090:9090 \
+                devops-cpp-app
+                '''
+            }
+        }
     }
 }
