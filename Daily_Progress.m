@@ -225,3 +225,54 @@ http://localhost:9090
 - Docker Container Management
 - Automated Application Deployment
 ---------------------------------------------------------------
+# 🚀 Day 9 - Docker Compose
+
+## Completed Tasks
+- Created `docker-compose.yml`
+- Automated container deployment
+- Managed application using Docker Compose
+- Simplified Docker build and run process
+
+## Why Docker Compose?
+Instead of running multiple Docker commands manually:
+
+docker build -t devops-cpp-app .
+docker run -p 9090:9090 devops-cpp-app
+```
+
+Docker Compose allows managing everything using a single configuration file.
+
+## Commands:
+
+### Start Application
+docker-compose up
+
+### Start in Background
+docker-compose up -d
+
+### Check Running Containers
+docker-compose ps
+
+### View Logs
+docker-compose logs
+
+### Stop Application
+docker-compose down
+```
+
+## Workflow
+docker-compose.yml
+        ↓
+Build Image
+        ↓
+Create Container
+        ↓
+Start Application
+```
+
+## Technologies Used
+- Docker
+- Docker Compose
+- C++
+- Linux
+-----------------------------------------------------------------
