@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+
+  cpp-app:
+
+    build: .
+
+    container_name: devops-cpp-container
+
+    ports:
+      - "9090:9090"
+
+    restart: always
