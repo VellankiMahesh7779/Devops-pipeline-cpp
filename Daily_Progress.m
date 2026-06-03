@@ -276,3 +276,25 @@ Start Application
 - C++
 - Linux
 -----------------------------------------------------------------
+# 🚀 Day 10 - Kubernetes Setup
+
+## Completed Tasks
+- Installed kubectl
+- Installed Minikube
+- Started Kubernetes Cluster
+- Verified Cluster Status
+- Learned basic kubectl commands
+
+## Commands
+kubectl get nodes
+kubectl get pods -A
+kubectl get svc
+
+## Key Learning
+- Kubernetes
+- Minikube
+- kubectl
+- Cluster
+- Node
+- Pod
+----------------------------------------------------------------------
