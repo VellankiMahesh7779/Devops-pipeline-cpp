@@ -2,217 +2,151 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <array>
 #include <cstdio>
 
 using namespace std;
 
-string executeCommand(const char* cmd) {
+string executeCommand(const char* cmd)
+{
+array<char, 128> buffer;
+string result;
 
-    array<char, 128> buffer;
-    string result;
+FILE* pipe = popen(cmd, "r");
 
-    FILE* pipe = popen(cmd, "r");
+if (!pipe)
+    return "Error";
 
-    if (!pipe)
-        return "Error";
-
-    while (fgets(buffer.data(), 128, pipe) != nullptr) {
-        result += buffer.data();
-    }
-
-    pclose(pipe);
-
-    return result;
+while (fgets(buffer.data(), 128, pipe) != nullptr)
+{
+    result += buffer.data();
 }
 
-float getRAMUsage() {
+pclose(pipe);
 
-    ifstream file("/proc/meminfo");
+return result;
 
-    string line;
-
-    long total = 0;
-    long available = 0;
-
-    while (getline(file, line)) {
-
-        if (line.find("MemTotal:") == 0)
-            sscanf(line.c_str(), "MemTotal: %ld kB", &total);
-
-        if (line.find("MemAvailable:") == 0)
-            sscanf(line.c_str(), "MemAvailable: %ld kB", &available);
-    }
-
-    return ((float)(total - available) / total) * 100;
 }
 
-float getDiskUsage() {
+string readFile(const string& filename)
+{
+ifstream file(filename);
 
-    string output = executeCommand("df / | tail -1");
+stringstream buffer;
 
-    long total, used, available;
-    int percent;
+buffer << file.rdbuf();
 
-    sscanf(output.c_str(),
-           "%*s %ld %ld %ld %d%%",
-           &total,
-           &used,
-           &available,
-           &percent);
+return buffer.str();
 
-    return percent;
 }
 
-float getCPUUsage() {
+float getRAMUsage()
+{
+ifstream file("/proc/meminfo");
 
-    string output =
-        executeCommand("top -bn1 | grep 'Cpu(s)' | awk '{print $2}'");
+string line;
 
-    try {
-        return stof(output);
-    }
-    catch (...) {
-        return 0;
-    }
+long total = 0;
+long available = 0;
+
+while (getline(file, line))
+{
+    if (line.find("MemTotal:") == 0)
+        sscanf(line.c_str(), "MemTotal: %ld kB", &total);
+
+    if (line.find("MemAvailable:") == 0)
+        sscanf(line.c_str(), "MemAvailable: %ld kB", &available);
 }
 
-int main() {
+return ((float)(total - available) / total) * 100;
 
-    httplib::Server svr;
-
-    svr.Get("/", [](const httplib::Request&, httplib::Response& res) {
-
-        int cpu = (int)getCPUUsage();
-        int ram = (int)getRAMUsage();
-        int disk = (int)getDiskUsage();
-
-        string html = R"(
-
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<title>Real-Time System Monitor</title>
-
-<style>
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 30px;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+float getDiskUsage()
+{
+string output = executeCommand("df / | tail -1");
+
+long total, used, available;
+int percent;
+
+sscanf(output.c_str(),
+       "%*s %ld %ld %ld %d%%",
+       &total,
+       &used,
+       &available,
+       &percent);
+
+return percent;
+
 }
 
-.card {
-    background: white;
-    width: 70%;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+float getCPUUsage()
+{
+string output =
+executeCommand("top -bn1 | grep 'Cpu(s)' | awk '{print $2}'");
+
+try
+{
+    return stof(output);
+}
+catch (...)
+{
+    return 0;
 }
 
-.label {
-    font-size: 22px;
-    margin-bottom: 15px;
-    font-weight: bold;
 }
 
-.bar-container {
-    width: 100%;
-    background-color: #ddd;
-    border-radius: 20px;
-    overflow: hidden;
-}
+int main()
+{
+httplib::Server svr;
 
-.bar {
-    height: 35px;
-    line-height: 35px;
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-}
+svr.Get("/style.css",
+        [](const httplib::Request&, httplib::Response& res)
+        {
+            string css = readFile("style.css");
 
-.cpu {
-    background-color: #4CAF50;
-}
+            res.set_content(css, "text/css");
+        });
 
-.ram {
-    background-color: #2196F3;
-}
+svr.Get("/",
+        [](const httplib::Request&, httplib::Response& res)
+        {
+            int cpu = (int)getCPUUsage();
+            int ram = (int)getRAMUsage();
+            int disk = (int)getDiskUsage();
 
-.disk {
-    background-color: #ff9800;
-}
+            string html = readFile("index.html");
 
-.footer {
-    text-align: center;
-    margin-top: 40px;
-    color: #555;
-}
+            size_t pos;
 
-</style>
+            while ((pos = html.find("CPU_PERCENT")) != string::npos)
+            {
+                html.replace(pos, 11, to_string(cpu));
+            }
 
-</head>
+            while ((pos = html.find("RAM_PERCENT")) != string::npos)
+            {
+                html.replace(pos, 11, to_string(ram));
+            }
 
-<body>
+            while ((pos = html.find("DISK_PERCENT")) != string::npos)
+            {
+                html.replace(pos, 12, to_string(disk));
+            }
 
-<h1>🚀 Real-Time System Monitoring Dashboard</h1>
+            res.set_content(html, "text/html");
+        });
 
-)";
+svr.Get("/health",
+        [](const httplib::Request&, httplib::Response& res)
+        {
+            res.set_content("OK", "text/plain");
+        });
 
-        // CPU CARD
-        html += "<div class='card'>";
-        html += "<div class='label'>CPU Usage</div>";
-        html += "<div class='bar-container'>";
-        html += "<div class='bar cpu' style='width:" + to_string(cpu) + "%'>";
-        html += to_string(cpu) + "%";
-        html += "</div></div></div>";
+cout << "Server running on http://localhost:9090" << endl;
 
-        // RAM CARD
-        html += "<div class='card'>";
-        html += "<div class='label'>RAM Usage</div>";
-        html += "<div class='bar-container'>";
-        html += "<div class='bar ram' style='width:" + to_string(ram) + "%'>";
-        html += to_string(ram) + "%";
-        html += "</div></div></div>";
+svr.listen("0.0.0.0", 9090);
 
-        // DISK CARD
-        html += "<div class='card'>";
-        html += "<div class='label'>Disk Usage</div>";
-        html += "<div class='bar-container'>";
-        html += "<div class='bar disk' style='width:" + to_string(disk) + "%'>";
-        html += to_string(disk) + "%";
-        html += "</div></div></div>";
-
-        html += R"(
-
-<div class="footer">
-Real-Time Linux System Metrics using C++
-</div>
-
-</body>
-</html>
-
-)";
-
-        res.set_content(html, "text/html");
-    });
-
-    svr.Get("/health", [](const httplib::Request&, httplib::Response& res) {
-
-        res.set_content("OK", "text/plain");
-    });
-
-    cout << "Server running on http://localhost:9090" << endl;
-
-    svr.listen("0.0.0.0", 9090);
 }

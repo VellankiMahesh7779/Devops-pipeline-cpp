@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Real-Time DevOps Dashboard</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<meta http-equiv="refresh" content="5">
+
+</head>
+
+<body>
+
+<h1>Real-Time DevOps Dashboard</h1>
+
+<div class="summary">
+
+    <div class="stat-card">
+        <h2>CPU</h2>
+        <div class="stat-value">CPU_PERCENT%</div>
+    </div>
+
+    <div class="stat-card">
+        <h2>RAM</h2>
+        <div class="stat-value">RAM_PERCENT%</div>
+    </div>
+
+    <div class="stat-card">
+        <h2>DISK</h2>
+        <div class="stat-value">DISK_PERCENT%</div>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="label">CPU Usage</div>
+
+    <div class="bar-container">
+        <div class="bar cpu" style="width:CPU_PERCENT%">
+            CPU_PERCENT%
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="label">RAM Usage</div>
+
+    <div class="bar-container">
+        <div class="bar ram" style="width:RAM_PERCENT%">
+            RAM_PERCENT%
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="label">Disk Usage</div>
+
+    <div class="bar-container">
+        <div class="bar disk" style="width:DISK_PERCENT%">
+            DISK_PERCENT%
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Real-Time Linux System Metrics using C++
+</div>
+
+</body>
+
+</html>
