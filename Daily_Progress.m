@@ -298,3 +298,27 @@ kubectl get svc
 - Node
 - Pod
 ----------------------------------------------------------------------
+# Day 11 - Kubernetes Deployment
+
+## Completed Tasks
+- Created deployment.yaml
+- Created service.yaml
+- Deployed application to Kubernetes
+- Created 2 replicas
+- Exposed application using NodePort Service
+- Verified Kubernetes self-healing
+- Accessed application using port-forward
+
+## Commands
+kubectl apply -f k8s/deployment.yaml
+
+kubectl apply -f k8s/service.yaml
+
+kubectl get deployments
+
+kubectl get pods
+
+kubectl get svc
+
+kubectl port-forward service/devops-cpp-service 9090:9090
+------------------------------------------------------------------------
