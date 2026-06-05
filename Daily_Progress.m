@@ -12,7 +12,7 @@
 ### Technologies Used
 - Git
 - GitHub
-- GitHub Actions
+- GitHub Action
 ---------------------------------------------------------------
 
 #✅ Day 2 - C++ HTTP Server
