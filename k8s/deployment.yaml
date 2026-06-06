@@ -8,22 +8,32 @@ metadata:
 spec:
   replicas: 2
 
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
   selector:
     matchLabels:
       app: devops-cpp-app
 
   template:
-
     metadata:
       labels:
         app: devops-cpp-app
 
     spec:
       containers:
-
       - name: devops-cpp-app
-
         image: vellankimahesh1999/devops-cpp-app:v2
 
         ports:
         - containerPort: 9090
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
