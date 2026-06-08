@@ -453,3 +453,142 @@ kubectl get svc
 ```bash
 kubectl port-forward service/devops-cpp-service 9090:9090
 ```
+# 📅 Day 13 - Prometheus & Grafana Monitoring Setup
+
+## ✅ Completed Tasks
+
+* Installed Prometheus using Helm
+* Installed Grafana using Helm
+* Configured Grafana access
+* Connected Grafana with Prometheus
+* Imported Node Exporter Dashboard (ID: 1860)
+* Verified CPU, Memory, Disk and Node metrics
+* Successfully monitored Kubernetes Minikube cluster
+
+---
+
+## 🛠 Installation Commands
+
+### Install Helm Repository
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm repo add grafana https://grafana.github.io/helm-charts
+
+helm repo update
+```
+
+### Install Prometheus
+
+```bash
+helm install prometheus prometheus-community/prometheus
+```
+Verify: Running or not
+```bash
+kubectl get pods
+```
+### Install Grafana
+
+```bash
+helm install grafana grafana/grafana
+```
+Verify: Running or not
+```bash
+kubectl get pods
+```
+You should see something like:
+grafana-xxxxxxxxx-xxxxx
+---
+
+## 📊 Access Prometheus
+
+```bash
+kubectl port-forward svc/prometheus-server 9090:80
+```
+
+Open:
+
+```text
+http://localhost:9090
+```
+
+---
+
+## 📈 Access Grafana
+
+Get Admin Password:
+
+```bash
+kubectl get secret grafana -o jsonpath="{.data.admin-password}" | base64 -d
+
+echo
+```
+
+Start Port Forward:
+
+```bash
+kubectl port-forward svc/grafana 3000:80
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+Login:
+
+```text
+Username: admin
+Password: <command output password>
+```
+
+---
+
+## 🔗 Connect Grafana to Prometheus
+
+Data Source URL:
+
+```text
+http://prometheus-server
+```
+
+Click:
+
+```text
+Connections → Data Sources → Prometheus → Save & Test
+```
+
+---
+
+## 📊 Import Dashboard
+
+Dashboard ID:
+
+```text
+1860
+```
+
+Steps:
+
+```text
+Dashboards → Import → Enter 1860 → Load → Import
+```
+
+---
+
+## 🎯 Outcome
+
+Successfully integrated Prometheus and Grafana with Kubernetes and visualized:
+
+* CPU Usage
+* Memory Usage
+* Disk Usage
+* System Load
+* Node Uptime
+* Kubernetes Node Metrics
+
+---
+
+
