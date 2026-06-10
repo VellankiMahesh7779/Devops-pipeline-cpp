@@ -16,17 +16,23 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t vellankimahesh1999/devops-cpp-app:v2 .
+                docker build -t devops-cpp-app .
                 '''
             }
         }
-      /*
-        stage('Deploy To Kubernetes') {
+
+        stage('Deploy Container') {
             steps {
                 sh '''
-                kubectl rollout restart deployment devops-cpp-app
+                docker stop devops-cpp-container || true
+                docker rm devops-cpp-container || true
+
+                docker run -d \
+                --name devops-cpp-container \
+                -p 9090:9090 \
+                devops-cpp-app
                 '''
             }
-        } */
+        }
     }
 }
