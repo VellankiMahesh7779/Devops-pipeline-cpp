@@ -20,13 +20,13 @@ pipeline {
                 '''
             }
         }
-
-        // stage('Deploy To Kubernetes') {
-        //     steps {
-        //         sh '''
-        //         kubectl rollout restart deployment devops-cpp-app
-        //         '''
-        //     }
-        }
+      /*
+        stage('Deploy To Kubernetes') {
+            steps {
+                sh '''
+                kubectl rollout restart deployment devops-cpp-app
+                '''
+            }
+        } */
     }
 }
