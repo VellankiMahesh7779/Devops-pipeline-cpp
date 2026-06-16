@@ -1,8 +1,92 @@
-# Terraform Commands
+# Terraform Installation & Commands
+
+## Install Terraform on Ubuntu/Linux
+
+### Add HashiCorp GPG Key
+```bash
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+```
+### Add HashiCorp Repository
+```bash
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+```
+### Update Packages
+```bash
+sudo apt update
+```
+### Install Terraform
+```bash
+sudo apt install terraform -y
+```
+### Verify Installation
+```bash
+terraform version
+```
+---
+## Install Terraform on Windows (Chocolatey)
+
+### Install Terraform
+```powershell
+choco install terraform -y
+```
+### Verify Installation
+```powershell
+terraform version
+```
+---
+## Install Terraform on Windows (Manual Method)
+### Download Terraform
+
+Download Terraform ZIP from HashiCorp website.
+
+### Create Terraform Directory
+```powershell
+mkdir C:\Terraform
+```
+
+### Extract ZIP File
+
+Extract:
+```text
+terraform.exe
+```
+to:
+```text
+C:\Terraform
+```
+### Add Terraform to PATH
+
+Open PowerShell as Administrator:
+
+```powershell
+[Environment]::SetEnvironmentVariable(
+"Path",
+$env:Path + ";C:\Terraform",
+[EnvironmentVariableTarget]::Machine
+)
+```
+
+### Verify Installation
+
+Open a new terminal:
+```powershell
+terraform version
+```
+
+---
+
+## Check Terraform Version
+```bash
+terraform version
+```
+
+---
 
 ## Initialize Terraform
-
-Downloads required providers and initializes the working directory.
 
 ```bash
 terraform init
@@ -12,8 +96,6 @@ terraform init
 
 ## Validate Configuration
 
-Checks Terraform configuration syntax.
-
 ```bash
 terraform validate
 ```
@@ -21,8 +103,6 @@ terraform validate
 ---
 
 ## Format Terraform Files
-
-Formats Terraform code according to standard style.
 
 ```bash
 terraform fmt
@@ -32,8 +112,6 @@ terraform fmt
 
 ## Generate Execution Plan
 
-Shows what Terraform will create, modify, or destroy.
-
 ```bash
 terraform plan
 ```
@@ -42,13 +120,11 @@ terraform plan
 
 ## Create Infrastructure
 
-Creates resources defined in Terraform configuration.
-
 ```bash
 terraform apply
 ```
 
-Skip confirmation:
+### Skip Confirmation
 
 ```bash
 terraform apply -auto-approve
@@ -58,8 +134,6 @@ terraform apply -auto-approve
 
 ## Show Terraform State
 
-Displays the current state of managed infrastructure.
-
 ```bash
 terraform show
 ```
@@ -67,8 +141,6 @@ terraform show
 ---
 
 ## List Managed Resources
-
-Lists resources stored in Terraform state.
 
 ```bash
 terraform state list
@@ -78,23 +150,21 @@ terraform state list
 
 ## Show Resource Details
 
-Displays detailed information about a specific resource.
-
-```bash
-terraform state show <resource_name>
-```
-
-Example:
-
 ```bash
 terraform state show aws_instance.example
 ```
 
 ---
 
-## Preview Resource Destruction
+## Display Output Values
 
-Shows resources that will be deleted.
+```bash
+terraform output
+```
+
+---
+
+## Preview Resource Destruction
 
 ```bash
 terraform plan -destroy
@@ -104,34 +174,14 @@ terraform plan -destroy
 
 ## Destroy Infrastructure
 
-Deletes all resources managed by Terraform.
-
 ```bash
 terraform destroy
 ```
 
-Skip confirmation:
+### Skip Confirmation
 
 ```bash
 terraform destroy -auto-approve
-```
-
----
-
-## Output Values
-
-Displays output variables.
-
-```bash
-terraform output
-```
-
----
-
-## View Terraform Version
-
-```bash
-terraform version
 ```
 
 ---
