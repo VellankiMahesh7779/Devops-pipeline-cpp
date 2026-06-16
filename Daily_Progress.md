@@ -590,5 +590,137 @@ Successfully integrated Prometheus and Grafana with Kubernetes and visualized:
 * Kubernetes Node Metrics
 
 ---
+# 📅 Day 14 - Kubernetes Metrics Server & Horizontal Pod Autoscaler (HPA)
+
+## 🎯 Objective
+Learn Kubernetes monitoring and automatic scaling using:
+* Metrics Server
+* kubectl top
+* Horizontal Pod Autoscaler (HPA)
+  
+---
+## ✅ Tasks Completed
+* Installed Metrics Server
+* Verified Metrics API availability
+* Monitored Node CPU and Memory usage
+* Monitored Pod resource consumption
+* Created Horizontal Pod Autoscaler (HPA)
+* Learned Kubernetes auto-scaling concepts
+
+---
+
+## 🛠 Installation Commands
+
+### Install Metrics Server
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+### Edit Metrics Server Deployment
+```bash
+kubectl edit deployment metrics-server -n kube-system
+```
+Add:
+```yaml
+- --kubelet-preferred-address-types=InternalIP
+- --kubelet-insecure-tls
+```
+Save and exit.
+---
+
+## 🔍 Verification Commands
+### Check Metrics Server Pod
+
+```bash
+kubectl get pods -n kube-system
+```
+
+### Verify Node Metrics
+```bash
+kubectl top nodes
+```
+
+Example:
+```text
+NAME       CPU(cores)   CPU%
+minikube   300m         15%
+```
+
+### Verify Pod Metrics
+```bash
+kubectl top pods
+```
+Example:
+```text
+NAME                              CPU(cores)   MEMORY(bytes)
+devops-cpp-app-xxxxx              2m           20Mi
+```
+---
+
+## 🚀 Create Horizontal Pod Autoscaler
+```bash
+kubectl autoscale deployment devops-cpp-app \
+--cpu-percent=50 \
+--min=2 \
+--max=5
+```
+---
+
+## 📊 Verify HPA
+```bash
+kubectl get hpa
+```
+Example:
+```text
+NAME             REFERENCE                   TARGETS
+devops-cpp-app   Deployment/devops-cpp-app   5%/50%
+```
+---
+
+## 👀 Watch Scaling Activity
+Monitor Pods:
+```bash
+kubectl get pods -w
+```
+Monitor HPA:
+```bash
+kubectl get hpa -w
+```
+---
+## 📚 Key Concepts Learned
+### Metrics Server
+
+Collects CPU and Memory metrics from Kubernetes nodes and pods.
+
+### kubectl top
+Used to view real-time resource consumption.
+
+```bash
+kubectl top nodes
+kubectl top pods
+```
+
+### Horizontal Pod Autoscaler (HPA)
+Automatically increases or decreases pod count based on CPU utilization.
+Example:
+```text
+2 Pods
+   ↓
+High CPU Usage
+   ↓
+3 Pods
+   ↓
+4 Pods
+```
+---
+## 🎯 Outcome
+Successfully enabled Kubernetes resource monitoring and auto-scaling capabilities using Metrics Server and HPA.
+---
+## 🛠 Technologies Used
+* Kubernetes
+* Minikube
+* Metrics Server
+* Horizontal Pod Autoscaler (HPA)
+* kubectl
+
 
 
