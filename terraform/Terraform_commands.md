@@ -177,7 +177,11 @@ terraform plan -destroy
 ```bash
 terraform destroy
 ```
+##Destroy specific instance
 
+```bash
+terraform destroy -target=aws_instance.web2
+```
 ### Skip Confirmation
 
 ```bash
