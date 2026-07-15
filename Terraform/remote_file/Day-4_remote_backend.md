@@ -1,5 +1,13 @@
 ## ✅ Day 4 - Terraform Remote Backend and State Management
 
+### Tasks Completed
+
+* Created an Amazon S3 bucket using Terraform.
+* Configured the S3 bucket as a Terraform Remote Backend.
+* Stored the `terraform.tfstate` file in the S3 bucket.
+* Learned how DynamoDB is used to enable State Locking.
+
+---
 ### Concepts Learned
 
 #### Terraform State File (`terraform.tfstate`)
