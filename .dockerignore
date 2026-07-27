@@ -1,0 +1,6 @@
+Terraform/
+.git
+Devops-Notes/
+Ansible/
+k8s/
+*.md
