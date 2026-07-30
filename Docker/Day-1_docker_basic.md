@@ -80,6 +80,21 @@ start
  ▼
 docker rm
 ```
+## 🔄 Easy way to Remember Docker
+
+| Topic            | Remember Like This                                                   |
+| ---------------- | -------------------------------------------------------------------- |
+| Docker           | A sealed lunch box containing everything the application needs.      |
+| Containerization | Packing the application and all dependencies into one portable unit. |
+| VM               | Everyone gets a separate house (full OS).                            |
+| Docker           | Everyone shares one building but has their own room (shared kernel). |
+| Docker Client    | Waiter taking your order.                                            |
+| Docker Daemon    | Chef preparing your order.                                           |
+| Docker Engine    | The entire restaurant.                                               |
+| Docker Hub       | GitHub for Docker images.                                            |
+| Image            | Blueprint or recipe.                                                 |
+| Container        | Running house or cooked meal.                                        |
+| Lifecycle        | Dockerfile → Image → Container → Stop → Start → Remove.              |
 
 ---
 
