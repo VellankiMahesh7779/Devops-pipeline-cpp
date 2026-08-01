@@ -1,4 +1,4 @@
-# ✅ Day 8 - Terraform `for_each`
+# ✅ Day 9 - Terraform `for_each`
 
 ## Topics Covered
 
