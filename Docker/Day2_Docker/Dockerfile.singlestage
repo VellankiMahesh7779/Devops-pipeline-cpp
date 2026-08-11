@@ -1,0 +1,43 @@
+# Use Ubuntu as the base image
+FROM ubuntu:24.04
+
+# Add image maintainer information
+LABEL maintainer="Mahesh"
+
+# Define application version at build time
+ARG APP_VERSION=1.0
+
+# Set application environment variable
+ENV APP_NAME=cpp-server
+
+# Set the working directory inside the container
+WORKDIR /app/src
+
+# Install the C++ compiler
+RUN apt-get update && \
+    apt-get install -y g++ && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy C++ source code into the container
+COPY server.cpp .
+
+# Compile the C++ application
+RUN g++ server.cpp -o server -pthread
+
+# Create a non-root user
+RUN useradd -m appuser
+
+# Run the application as the non-root user
+USER appuser
+
+# Document the application's port
+EXPOSE 9090
+
+# Define persistent data location
+VOLUME ["/app/data"]
+
+# Start the C++ application
+ENTRYPOINT ["./server"]
+
+# Provide default arguments
+CMD []

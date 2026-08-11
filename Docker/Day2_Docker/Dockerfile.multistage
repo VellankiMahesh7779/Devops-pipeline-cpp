@@ -1,0 +1,50 @@
+# Stage 1: Build the C++ application
+FROM ubuntu:24.04 AS builder
+
+# Build-time application version
+ARG APP_VERSION=1.0
+
+# Set working directory
+WORKDIR /app/src
+
+# Install C++ compiler
+RUN apt-get update && \
+    apt-get install -y g++ && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy C++ source code
+COPY server.cpp .
+
+# Compile C++ application
+RUN g++ server.cpp -o server -pthread
+
+
+# Stage 2: Create the final runtime image
+FROM ubuntu:24.04
+
+# Add image metadata
+LABEL maintainer="Mahesh"
+
+# Set runtime environment variable
+ENV APP_NAME=cpp-server
+
+# Set working directory
+WORKDIR /app
+
+# Create non-root user
+RUN useradd -m appuser
+
+# Copy only the compiled binary from the build stage
+COPY --from=builder /app/src/server .
+
+# Run application as non-root user
+USER appuser
+
+# Application listens on port 9090
+EXPOSE 9090
+
+# Persistent application data
+VOLUME ["/app/data"]
+
+# Start the C++ application
+ENTRYPOINT ["./server"]
