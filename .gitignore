@@ -6,3 +6,4 @@ server
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.backup
+Terraform/Practice/
