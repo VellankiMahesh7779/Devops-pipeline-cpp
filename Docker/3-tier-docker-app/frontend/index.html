@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Store</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .product h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #16a34a;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🛒 Product Store</h1>
+
+        <p class="subtitle">
+            Products served through our Docker 3-Tier Application
+        </p>
+
+        <button onclick="loadProducts()">
+            Load Products
+        </button>
+
+        <div id="products"></div>
+
+    </div>
+
+    <script>
+        async function loadProducts() {
+
+            const response = await fetch("/api/products");
+            const products = await response.json();
+
+            let output = "";
+
+            products.forEach(product => {
+
+                output += `
+                    <div class="product">
+                        <h3>${product.name}</h3>
+                        <div class="price">
+                            ₹${product.price}
+                        </div>
+                    </div>
+                `;
+
+            });
+
+            document.getElementById("products").innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>
