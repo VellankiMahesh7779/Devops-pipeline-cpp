@@ -14,12 +14,25 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+
+            /* Spider-Man background */
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.65),
+                    rgba(255, 255, 255, 0.75)
+                ),
+                url("msdhoni.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
             min-height: 100vh;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
             padding: 50px 20px;
             text-align: center;
@@ -28,17 +41,19 @@
         h1 {
             color: #1e293b;
             margin-bottom: 10px;
+            font-size: 42px;
         }
 
         .subtitle {
-            color: #64748b;
+            color: #475569;
+            font-size: 18px;
             margin-bottom: 30px;
         }
 
         button {
             background: #2563eb;
             color: white;
-            border: none;
+            border: 2px solid #111827;
             padding: 12px 25px;
             border-radius: 8px;
             font-size: 16px;
@@ -52,20 +67,32 @@
 
         #products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
             gap: 20px;
         }
 
         .product {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.15);
+
+            transition: transform 0.2s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
         }
 
         .product h3 {
             color: #1e293b;
             margin-bottom: 10px;
+            font-size: 22px;
         }
 
         .price {
@@ -95,28 +122,54 @@
     </div>
 
     <script>
+
         async function loadProducts() {
 
-            const response = await fetch("/api/products");
-            const products = await response.json();
+            try {
 
-            let output = "";
+                const response = await fetch("/api/products");
 
-            products.forEach(product => {
+                if (!response.ok) {
+                    throw new Error("Failed to load products");
+                }
 
-                output += `
-                    <div class="product">
-                        <h3>${product.name}</h3>
-                        <div class="price">
-                            ₹${product.price}
+                const products = await response.json();
+
+                let output = "";
+
+                products.forEach(product => {
+
+                    output += `
+                        <div class="product">
+
+                            <h3>
+                                ${product.name}
+                            </h3>
+
+                            <div class="price">
+                                ₹${product.price}
+                            </div>
+
                         </div>
+                    `;
+
+                });
+
+                document.getElementById("products").innerHTML = output;
+
+            } catch (error) {
+
+                document.getElementById("products").innerHTML = `
+                    <div class="product">
+                        <h3>❌ Error</h3>
+                        <p>Unable to load products.</p>
                     </div>
                 `;
 
-            });
-
-            document.getElementById("products").innerHTML = output;
+                console.error(error);
+            }
         }
+
     </script>
 
 </body>

@@ -8,4 +8,7 @@ INSERT INTO products (name, price)
 VALUES
 ('Laptop', 50000),
 ('Phone', 25000),
-('Headphones', 3000);
+('Headphones', 3000),
+('Monitor', 15000),
+('Keyboard', 2000),
+('Mouse', 1000);
