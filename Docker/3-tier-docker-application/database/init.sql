@@ -11,4 +11,6 @@ VALUES
 ('Headphones', 3000),
 ('Monitor', 15000),
 ('Keyboard', 2000),
-('Mouse', 1000);
+('Mouse', 1000),
+('Charger', 1500),
+('Camera',8000);
