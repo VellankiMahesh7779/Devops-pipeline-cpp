@@ -22,7 +22,7 @@ A **Terraform Module** is a collection of Terraform configuration files (`.tf`) 
 
 ### 1. Root Module
 
-The directory where you run Terraform commands.
+The directory where you run Terraform commands. 
 
 ```bash
 terraform init
